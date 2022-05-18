@@ -6,6 +6,7 @@
  */
 package com.movieapp.service;
 
+
 import com.movieapp.exception.ShowNotFoundException;
 import com.movieapp.model.Show;
 import com.movieapp.repository.IShowRepository;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+
 public class ShowServiceImpl implements IShowService {
     IShowRepository iShowRepository;
 

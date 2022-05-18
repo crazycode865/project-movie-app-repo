@@ -6,12 +6,17 @@
  */
 package com.movieapp.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.movieapp.model.Customer;
 import com.movieapp.repository.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
+
 public class CustomerServiceImpl implements ICustomerService {
     ICustomerRepository iCustomerRepository;
 
@@ -46,5 +51,10 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public void getById(int customerId) {
         iCustomerRepository.findById(customerId);
+    }
+
+    @Override
+    public List<Customer> getAll() {
+        return iCustomerRepository.findAll();
     }
 }

@@ -9,16 +9,33 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+
 @Repository
-public interface IBookingRepository extends JpaRepository<Booking,Integer> {
-    @Query("from Booking b where b.bookingId=?1")
+public interface IBookingRepository extends JpaRepository<Booking, Integer> {
+
+
+    //Derived Query
+
     public List<Booking> getByBookingId(int bookingId);
-    @Query("from Booking b where b.bookingDate=?1")
+
+    //Getting Type conversion error
     public List<Booking> getByBookingDate(LocalDate bookingDate);
-    @Query("from Booking b inner join b.customer c where c.customerName=?1")
-    public List<Booking> getByCustomerName(String customerName);
-    @Query("from Booking b where b.seatType=?1")
+
     public List<Booking> getBySeatType(String seatType);
+
+
+    //Custom Query
     @Query("from Booking b inner join b.movie m where m.movieName=?1 ")
     public List<Booking> getByMovieName(String movieName);
+
+    @Query("from Booking b inner join b.show s where s.showName=?1 ")
+    public List<Booking> getByShowName(String showName);
+
+    @Query("from Booking b inner join b.customer c where c.customerName=?1")
+    public List<Booking> getByCustomerName(String customerName);
+
+    @Query("from Booking b inner join b.movie m where m.language=?1 ")
+    public List<Booking> getByMovieLanguage(String language);
+
+
 }

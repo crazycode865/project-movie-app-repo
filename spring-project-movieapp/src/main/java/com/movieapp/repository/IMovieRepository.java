@@ -15,8 +15,11 @@ import java.util.List;
 
 @Repository
 public interface IMovieRepository  extends JpaRepository<Movie,Integer> {
-    Movie findByMovieName(String movieName) ;
 
+
+
+    //Derived query
+    Movie findByMovieName(String movieName) ;
     List<Movie> findByLanguage(String language) ;
     List<Movie> findByGenre(String genre) ;
     List<Movie> findByType(String type) ;

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+
 public class TheatreServiceImpl implements ITheatreService {
     ITheatreRepository iTheatreRepository;
     @Autowired

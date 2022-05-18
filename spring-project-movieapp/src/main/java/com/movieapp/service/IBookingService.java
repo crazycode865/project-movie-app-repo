@@ -15,9 +15,14 @@ import java.util.List;
 
 public interface IBookingService {
     public Booking addBooking(Booking booking, Integer customerId,Integer showId);
-    public List<Booking> getById(int bookingId);
+    public List<Booking> getByBookingId(int bookingId);
     public List<Booking> getByBookingDate(LocalDate bookingDate);
+
+
     public List<Booking> getByCustomerName(String customerName);
     public List<Booking> getBySeatType(String seatType);
     public List<Booking> getByMovieName(String movieName);
+    public List<Booking> getByShowName(String showName);
+    public List<Booking> getByMovieLanguage(String language);
+    List<Booking> getAll();
 }

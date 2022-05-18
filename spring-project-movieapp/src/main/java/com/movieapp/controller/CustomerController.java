@@ -6,7 +6,9 @@
  */
 package com.movieapp.controller;
 
+import com.movieapp.exception.MovieNotFoundException;
 import com.movieapp.model.Customer;
+import com.movieapp.model.Movie;
 import com.movieapp.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -44,8 +46,12 @@ public class CustomerController {
         httpHeaders.add("desc","Deleting By Id");
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).build();
     }
-//    @GetMapping("/customers")
-//    public ResponseEntity<List<Customer>> getByMovieName(@PathVariable("movieName")String movieName){
-//        List<Customer> customers =
-//    }
+    @GetMapping("/customers/showAll")
+    public ResponseEntity<List<Customer>> getall() throws MovieNotFoundException {
+        List<Customer> customers = iCustomerService.getAll();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("desc", "Getting all movies");
+        ResponseEntity<List<Customer>> responseEntity = new ResponseEntity<>(customers, httpHeaders, HttpStatus.OK);
+        return responseEntity;
+    }
 }

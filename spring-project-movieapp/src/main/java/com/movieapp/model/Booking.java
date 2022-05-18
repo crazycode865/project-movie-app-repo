@@ -6,6 +6,7 @@
  */
 package com.movieapp.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -34,6 +35,8 @@ public class Booking {
     private String seatType; // FIRST-CLASS,AC-CLASS,BALCONY
     private int totalSeats;
     private double totalCost;
+//    @JsonBackReference("bookings")
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "show_id")
     private Show show;

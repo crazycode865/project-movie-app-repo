@@ -6,6 +6,8 @@
  */
 package com.movieapp.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.movieapp.model.*;
 import com.movieapp.repository.IBookingRepository;
 import com.movieapp.repository.ICustomerRepository;
@@ -13,11 +15,13 @@ import com.movieapp.repository.IShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class BookingServiceImpl implements IBookingService {
+
+public class BookingServiceImpl implements IBookingService, Serializable {
     IBookingRepository iBookingRepository;
     IShowRepository iShowRepository;
     ICustomerRepository iCustomerRepository;
@@ -43,9 +47,9 @@ public class BookingServiceImpl implements IBookingService {
         Customer customer = new Customer();
         Show show = new Show();
         if (showId != null) {
-         show =  iShowRepository.getById(showId);
+            show = iShowRepository.getById(showId);
             double price = show.getPrice();
-            booking.setTotalCost(price*booking.getTotalSeats());
+            booking.setTotalCost(price * booking.getTotalSeats());
             show.setBooking(booking);
             booking.setShow(show);
             booking.setMovie(show.getMovie());
@@ -55,17 +59,22 @@ public class BookingServiceImpl implements IBookingService {
         iBookingRepository.save(booking);
         return iBookingRepository.findById(booking.getBookingId()).get();
     }
-
+    //Derived query
     @Override
-    public List<Booking> getById(int bookingId) {
+    public List<Booking> getByBookingId(int bookingId) {
         return iBookingRepository.getByBookingId(bookingId);
     }
-
+    @Override
+    public List<Booking> getAll() {
+        return iBookingRepository.findAll();
+    }
     @Override
     public List<Booking> getByBookingDate(LocalDate bookingDate) {
         return iBookingRepository.getByBookingDate(bookingDate);
     }
 
+
+    //Custom query
     @Override
     public List<Booking> getByCustomerName(String customerName) {
         return iBookingRepository.getByCustomerName(customerName);
@@ -80,4 +89,16 @@ public class BookingServiceImpl implements IBookingService {
     public List<Booking> getByMovieName(String movieName) {
         return iBookingRepository.getByMovieName(movieName);
     }
+
+    @Override
+    public List<Booking> getByShowName(String showName) {
+        return iBookingRepository.getByShowName(showName);
+    }
+
+    @Override
+    public List<Booking> getByMovieLanguage(String language) {
+        return iBookingRepository.getByMovieLanguage(language) ;
+    }
+
+
 }
