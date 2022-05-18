@@ -8,11 +8,11 @@ import java.util.List;
 
 
 public interface IMovieService {
-    public Movie addMovie(Movie movie) throws MovieNotFoundException;
+    public Movie addMovie(Movie movie) ;
 
-    public void deleteMovie(int movieId) throws MovieNotFoundException;
+    public void deleteMovie(int movieId) ;
 
-    public void updateMovie(Movie movie) throws MovieNotFoundException;
+    public void updateMovie(Movie movie) ;
 
     Movie getById(int movieId) throws MovieNotFoundException;
 

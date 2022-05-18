@@ -6,7 +6,7 @@
  */
 package com.movieapp.exception;
 
-public class ShowNotFoundException extends Exception {
+public class ShowNotFoundException extends RuntimeException {
     public ShowNotFoundException() {
     }
 

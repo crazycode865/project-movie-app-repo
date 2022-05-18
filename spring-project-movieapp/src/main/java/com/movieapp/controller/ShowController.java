@@ -30,6 +30,11 @@ public class ShowController {
         this.iShowService = iShowService;
     }
 
+    /**
+     *
+     * @param show
+     * @return No Need of Adding Show through Show Controller ,Show Should be Added through Theatre Controller
+     */
 //    @PostMapping("/shows/add-show")
 //    public ResponseEntity<Void> addshow(@RequestBody Show show) {
 //        iShowService.addShow(show);
@@ -45,7 +50,7 @@ public class ShowController {
     }
 
     @DeleteMapping("/shows/delete-show/showId/{showId}")
-    public ResponseEntity<Void> deleteShow(@PathVariable("showId") int showId) throws ShowNotFoundException {
+    public ResponseEntity<Void> deleteShow(@PathVariable("showId") int showId) {
         iShowService.deleteShow(showId);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Deleting show By Id");
@@ -53,7 +58,7 @@ public class ShowController {
     }
 
     @GetMapping("shows/showId/{showId}")
-    public ResponseEntity<Show> getById(@PathVariable("movieId") int showId) throws ShowNotFoundException {
+    public ResponseEntity<Show> getById(@PathVariable("movieId") int showId)  {
         Show show = iShowService.getById(showId);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Getting show By Id");
@@ -61,7 +66,7 @@ public class ShowController {
         return responseEntity;
     }
     @GetMapping("/shows/showAll")
-    public ResponseEntity<List<Show>> getall() throws MovieNotFoundException {
+    public ResponseEntity<List<Show>> getall()  {
         List<Show> shows = iShowService.getAll();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Getting all shows");
@@ -70,7 +75,7 @@ public class ShowController {
     }
 
     @GetMapping("/shows/showStartTime/{showStartTime}")
-    public ResponseEntity<List<Show>> getByShowStartTime(@PathVariable("showStartTime") LocalDateTime showStartTime) throws ShowNotFoundException {
+    public ResponseEntity<List<Show>> getByShowStartTime(@PathVariable("showStartTime") LocalDateTime showStartTime){
         List<Show> shows = iShowService.getByShowStartTime(showStartTime);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Get Show By Start Time");

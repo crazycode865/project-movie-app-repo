@@ -6,8 +6,7 @@
  */
 package com.movieapp.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.movieapp.exception.BookingNotFoundException;
 import com.movieapp.model.*;
 import com.movieapp.repository.IBookingRepository;
 import com.movieapp.repository.ICustomerRepository;
@@ -30,7 +29,6 @@ public class BookingServiceImpl implements IBookingService, Serializable {
     public void setiCustomerRepository(ICustomerRepository iCustomerRepository) {
         this.iCustomerRepository = iCustomerRepository;
     }
-
     @Autowired
     public void setiShowRepository(IShowRepository iShowRepository) {
         this.iShowRepository = iShowRepository;
@@ -41,7 +39,14 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         this.iBookingRepository = iBookingRepository;
     }
 
-
+//Adding Booking
+    /**
+     *
+     * @param booking
+     * @param customerId
+     * @param showId
+     *
+     */
     @Override
     public Booking addBooking(Booking booking, Integer customerId, Integer showId) {
         Customer customer = new Customer();
@@ -60,44 +65,111 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         return iBookingRepository.findById(booking.getBookingId()).get();
     }
     //Derived query
+    //Getting Booking By Id
+    /**
+     *
+     * @param bookingId
+     * @throws BookingNotFoundException
+     */
     @Override
-    public List<Booking> getByBookingId(int bookingId) {
-        return iBookingRepository.getByBookingId(bookingId);
+    public Booking getByBookingId(int bookingId) {
+
+        return iBookingRepository.getByBookingId(bookingId).stream().findAny().orElseThrow(()->new BookingNotFoundException("Booking not Found with this Id"));
     }
     @Override
     public List<Booking> getAll() {
+
         return iBookingRepository.findAll();
     }
+
+    //Getting Booking By Booking Date
+    /**
+     *
+     * @param bookingDate
+     * @throws BookingNotFoundException
+     */
     @Override
     public List<Booking> getByBookingDate(LocalDate bookingDate) {
-        return iBookingRepository.getByBookingDate(bookingDate);
+        List<Booking>bookings = iBookingRepository.getByBookingDate(bookingDate);
+        if (bookings.isEmpty())
+            throw new BookingNotFoundException("Booking with Date not exist");
+        return bookings;
     }
 
 
     //Custom query
+    //Getting Booking By Customer Name
+    /**
+     *
+     * @param customerName
+     * @throws BookingNotFoundException
+     */
+
     @Override
     public List<Booking> getByCustomerName(String customerName) {
-        return iBookingRepository.getByCustomerName(customerName);
+        List<Booking>bookings = iBookingRepository.getByCustomerName(customerName);
+        if (bookings.isEmpty())
+            throw new BookingNotFoundException("Booking with this Customer not Found");
+        return bookings;
     }
 
+    //Getting Booking By Seat Type
+    /**
+     *
+     * @param seatType
+     * @throws BookingNotFoundException
+     */
     @Override
     public List<Booking> getBySeatType(String seatType) {
-        return iBookingRepository.getBySeatType(seatType);
+
+        List<Booking>bookings = iBookingRepository.getBySeatType(seatType);
+        if (bookings.isEmpty())
+            throw new BookingNotFoundException("Booking with this Seat Type not Found");
+        return bookings;
     }
 
+    //Getting Booking By Movie Name
+    /**
+     *
+     * @param movieName
+     * @throws BookingNotFoundException
+     */
     @Override
     public List<Booking> getByMovieName(String movieName) {
-        return iBookingRepository.getByMovieName(movieName);
+
+        List<Booking>bookings = iBookingRepository.getByMovieName(movieName);
+        if (bookings.isEmpty())
+            throw new BookingNotFoundException("Booking with this Movie Name not Found");
+        return bookings;
     }
 
+    //Getting Booking By Show name
+    /**
+     *
+     * @param showName
+     * @throws BookingNotFoundException
+     */
     @Override
     public List<Booking> getByShowName(String showName) {
-        return iBookingRepository.getByShowName(showName);
+
+        List<Booking>bookings = iBookingRepository.getByShowName(showName);
+        if (bookings.isEmpty())
+            throw new BookingNotFoundException("Booking with this Show Name not Found");
+        return bookings;
     }
 
+    //Getting Booking by language
+    /**
+     *
+     * @param language
+     * @throws BookingNotFoundException
+     */
     @Override
     public List<Booking> getByMovieLanguage(String language) {
-        return iBookingRepository.getByMovieLanguage(language) ;
+        List<Booking>bookings =iBookingRepository.getByMovieLanguage(language) ;
+        if (bookings.isEmpty())
+            throw new BookingNotFoundException("Booking with this language not Found");
+        return bookings;
     }
 
 

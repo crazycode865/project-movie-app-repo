@@ -6,7 +6,7 @@
  */
 package com.movieapp.exception;
 
-public class TheatreNotFoundException extends Exception {
+public class TheatreNotFoundException extends RuntimeException {
     public TheatreNotFoundException() {
     }
 

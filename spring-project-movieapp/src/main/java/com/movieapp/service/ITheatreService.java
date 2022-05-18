@@ -12,6 +12,5 @@ public interface ITheatreService {
     public Theatre getById(int theatreId)throws TheatreNotFoundException;
     public Theatre getByTheatreName(String theatreName)throws TheatreNotFoundException;
     public List<Theatre> getByCity(String city)throws TheatreNotFoundException;
-
-    List<Theatre> getAll();
+    List<Theatre> getAll()throws TheatreNotFoundException;
 }

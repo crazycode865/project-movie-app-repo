@@ -12,7 +12,7 @@ public interface IShowService {
     public void deleteShow(int showId)throws ShowNotFoundException;
     public Show getById(int showId)throws ShowNotFoundException;
     public List<Show> getByShowStartTime(LocalDateTime showStartTime)throws ShowNotFoundException;
-    public List<Show> getAll();
+    public List<Show> getAll()throws ShowNotFoundException;
 
 
 }

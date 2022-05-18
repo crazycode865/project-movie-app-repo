@@ -28,7 +28,7 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public Movie addMovie(Movie movie) throws MovieNotFoundException {
+    public Movie addMovie(Movie movie) {
         return iMovieRepository.save(movie);
     }
 
@@ -38,7 +38,7 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public void deleteMovie(int movieId) throws MovieNotFoundException {
+    public void deleteMovie(int movieId) {
         iMovieRepository.deleteById(movieId);
     }
 
@@ -48,7 +48,7 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public void updateMovie(Movie movie) throws MovieNotFoundException {
+    public void updateMovie(Movie movie) {
         iMovieRepository.save(movie);
     }
 
@@ -59,8 +59,8 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public Movie getById(int movieId) throws MovieNotFoundException {
-        return iMovieRepository.findById(movieId).get();
+    public Movie getById(int movieId) {
+        return iMovieRepository.findById(movieId).stream().findAny().orElseThrow(()->new MovieNotFoundException("Movie not Found By Id"));
     }
 
     /**
@@ -69,8 +69,11 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public List<Movie> getAll() throws MovieNotFoundException {
-        return iMovieRepository.findAll();
+    public List<Movie> getAll()  {
+        List<Movie> movies = iMovieRepository.findAll();
+        if (movies.isEmpty())
+            throw new MovieNotFoundException("Movie Not Found with this name and ratings");
+        return movies;
     }
 
     /**
@@ -80,8 +83,12 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public Movie getByMovieName(String movieName) throws MovieNotFoundException {
-        return iMovieRepository.findByMovieName(movieName);
+    public Movie getByMovieName(String movieName) {
+       Movie movie = iMovieRepository.findByMovieName(movieName);
+       if (movie!=null)
+           return movie;
+       throw new MovieNotFoundException("Movie not Found By this Name");
+
     }
 
     /**
@@ -91,8 +98,11 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public List<Movie> getByLanguage(String language) throws MovieNotFoundException {
-        return iMovieRepository.findByLanguage(language);
+    public List<Movie> getByLanguage(String language)  {
+        List<Movie> movies = iMovieRepository.findByLanguage(language);
+        if (movies.isEmpty())
+            throw new MovieNotFoundException("Movie Not Found with this name and ratings");
+        return movies;
     }
 
     /**
@@ -102,8 +112,11 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public List<Movie> getByGenre(String genre) throws MovieNotFoundException {
-        return iMovieRepository.findByGenre(genre);
+    public List<Movie> getByGenre(String genre) {
+        List<Movie> movies =iMovieRepository.findByGenre(genre);
+        if (movies.isEmpty())
+            throw new MovieNotFoundException("Movie Not Found with this name and ratings");
+        return movies;
     }
 
     /**
@@ -113,8 +126,11 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public List<Movie> getByType(String type) throws MovieNotFoundException {
-        return iMovieRepository.findByType(type);
+    public List<Movie> getByType(String type) {
+        List<Movie> movies =iMovieRepository.findByType(type);
+        if (movies.isEmpty())
+            throw new MovieNotFoundException("Movie Not Found with this name and ratings");
+        return movies;
     }
 
     /**
@@ -124,8 +140,11 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public List<Movie> getByRatings(double ratings) throws MovieNotFoundException {
-        return iMovieRepository.findByRatings(ratings);
+    public List<Movie> getByRatings(double ratings) {
+        List<Movie> movies = iMovieRepository.findByRatings(ratings);
+        if (movies.isEmpty())
+            throw new MovieNotFoundException("Movie Not Found with this ratings");
+        return movies;
     }
 
     /**
@@ -136,8 +155,11 @@ public class MovieServiceImpl implements IMovieService{
      * @throws MovieNotFoundException
      */
     @Override
-    public List<Movie> getByMovieNameAndRatings(String movieName, double ratings) throws MovieNotFoundException {
-        return iMovieRepository.findByMovieNameAndRatings(movieName,ratings);
+    public List<Movie> getByMovieNameAndRatings(String movieName, double ratings) {
+        List<Movie> movies = iMovieRepository.findByMovieNameAndRatings(movieName,ratings);
+        if (movies.isEmpty())
+            throw new MovieNotFoundException("Movie Not Found with this name and ratings");
+        return movies;
     }
 
     /**
@@ -148,6 +170,9 @@ public class MovieServiceImpl implements IMovieService{
      */
     @Override
     public List<Movie> getByLanguageAndType(String language, String type) {
-        return iMovieRepository.findByLanguageAndType(language,type);
+        List<Movie> movies =  iMovieRepository.findByLanguageAndType(language,type);
+        if (movies.isEmpty())
+            throw new MovieNotFoundException("Movie Not Found with this language and Type");
+        return movies;
     }
 }

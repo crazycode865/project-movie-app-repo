@@ -61,8 +61,8 @@ iShowRepository.save(show);
      * @throws ShowNotFoundException
      */
     @Override
-    public Show getById(int showId) throws ShowNotFoundException {
-        return iShowRepository.findById(showId).get();
+    public Show getById(int showId)  {
+        return iShowRepository.findById(showId).stream().findAny().orElseThrow(()->new ShowNotFoundException("Show not Found with this Id"));
     }
 
     /**
@@ -72,12 +72,18 @@ iShowRepository.save(show);
      * @throws ShowNotFoundException
      */
     @Override
-    public List<Show> getByShowStartTime(LocalDateTime showStartTime) throws ShowNotFoundException {
-        return iShowRepository.findByShowStartTime(showStartTime);
+    public List<Show> getByShowStartTime(LocalDateTime showStartTime){
+        List<Show> shows = iShowRepository.findByShowStartTime(showStartTime);
+        if (shows.isEmpty())
+            throw new ShowNotFoundException("Show not Found with this Start Time");
+        return shows;
     }
 
     @Override
     public List<Show> getAll() {
-        return iShowRepository.findAll();
+        List<Show>shows = iShowRepository.findAll();
+        if (shows.isEmpty())
+            throw new ShowNotFoundException("Show Not Found");
+        return shows;
     }
 }

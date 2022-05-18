@@ -6,6 +6,7 @@
  */
 package com.movieapp.service;
 
+import com.movieapp.exception.TheatreNotFoundException;
 import com.movieapp.model.Theatre;
 import com.movieapp.repository.ITheatreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,8 @@ public class TheatreServiceImpl implements ITheatreService {
     @Override
     public Theatre getById(int theatreId) {
 
-        return iTheatreRepository.findById(theatreId).get();
+        return iTheatreRepository.findById(theatreId).stream().findAny(). orElseThrow(()->new TheatreNotFoundException("Theatre not Found with this id")) ;
+
     }
 
     /**
@@ -67,7 +69,11 @@ public class TheatreServiceImpl implements ITheatreService {
      */
     @Override
     public Theatre getByTheatreName(String theatreName) {
-        return iTheatreRepository.findByTheatreName(theatreName);
+
+        Theatre theatre =   iTheatreRepository.findByTheatreName(theatreName);
+        if(theatre==null)
+            throw new TheatreNotFoundException("Theatre not Found By this Theatre Name");
+        return theatre;
     }
 
     /**
@@ -77,11 +83,18 @@ public class TheatreServiceImpl implements ITheatreService {
      */
     @Override
     public List<Theatre> getByCity(String city) {
-        return iTheatreRepository.findByCity(city);
+
+        List<Theatre> theatres= iTheatreRepository.findByCity(city);
+        if(theatres.isEmpty())
+            throw new TheatreNotFoundException("Theatre not found with this city");
+        return theatres;
     }
 
     @Override
     public List<Theatre> getAll() {
-        return iTheatreRepository.findAll();
+        List<Theatre> theatres = iTheatreRepository.findAll();
+        if (theatres.isEmpty())
+            throw new TheatreNotFoundException("Theatre not Found");
+        return theatres;
     }
 }
