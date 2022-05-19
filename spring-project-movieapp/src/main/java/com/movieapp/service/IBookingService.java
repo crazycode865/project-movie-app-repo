@@ -16,6 +16,8 @@ import java.util.List;
 
 public interface IBookingService {
     public Booking addBooking(Booking booking, Integer customerId,Integer showId);
+    public  void deleteBooking(Integer bookingId);
+    public void  cancelBooking(int bookingId);
     public Booking getByBookingId(int bookingId)throws BookingNotFoundException;
     public List<Booking> getByBookingDate(LocalDate bookingDate)throws BookingNotFoundException;
 
@@ -26,5 +28,11 @@ public interface IBookingService {
     public List<Booking> getByShowName(String showName)throws BookingNotFoundException;
     public List<Booking> getByMovieLanguage(String language)throws BookingNotFoundException;
     List<Booking> getAll()throws BookingNotFoundException;
-//    double getTotalBookingCost();
+
+    double getSumOfBookingCost();
+
+    int totalNumberOfBooking();
+
+
+    int totalNumberOfCancelledBooking();
 }

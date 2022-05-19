@@ -1,5 +1,6 @@
 package com.movieapp.repository;
 
+import com.movieapp.exception.BookingNotFoundException;
 import com.movieapp.model.Booking;
 import com.movieapp.model.Customer;
 import com.movieapp.model.Movie;
@@ -36,9 +37,19 @@ public interface IBookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query("from Booking b inner join b.movie m where m.language=?1 ")
     public List<Booking> getByMovieLanguage(String language);
-//    @Query("Select sum(b.totalCost) from booking b")
-//    double getTotalBookingCost();
 
+    //Native query
+    @Query(value = "select sum(total_cost) from booking", nativeQuery = true)
+    double getSumOfBookingCost();
+
+    @Query(value = "select count(booking_id) from booking where booking_status='BOOKED'", nativeQuery = true)
+    int totalNumberOfBooking();
+
+    @Query(value = "select count(booking_id) from booking where booking_status='CANCELLED'",nativeQuery = true)
+    int totalNumberOfCancelledBooking();
+
+    @Query(value = "update booking set booking_status='CANCELLED' where booking_id=bookingId",nativeQuery = true)
+    public void cancelBooking(int bookingId);
 
 
 }

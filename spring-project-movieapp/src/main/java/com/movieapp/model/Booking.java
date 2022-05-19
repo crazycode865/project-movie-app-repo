@@ -40,8 +40,9 @@ public class Booking {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "show_id")
     private Show show;
+    private String bookingStatus;
 
-    public Booking(LocalDate bookingDate, Customer customer, Movie movie, String seatType, int totalSeats, double totalCost, Show show) {
+    public Booking(LocalDate bookingDate, Customer customer, Movie movie, String seatType, int totalSeats, double totalCost, Show show, String bookingStatus) {
         this.bookingDate = bookingDate;
         this.customer = customer;
         this.movie = movie;
@@ -49,5 +50,6 @@ public class Booking {
         this.totalSeats = totalSeats;
         this.totalCost = totalCost;
         this.show = show;
+        this.bookingStatus = bookingStatus;
     }
 }

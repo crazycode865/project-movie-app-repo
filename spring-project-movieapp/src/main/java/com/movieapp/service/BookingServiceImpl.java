@@ -29,6 +29,7 @@ public class BookingServiceImpl implements IBookingService, Serializable {
     public void setiCustomerRepository(ICustomerRepository iCustomerRepository) {
         this.iCustomerRepository = iCustomerRepository;
     }
+
     @Autowired
     public void setiShowRepository(IShowRepository iShowRepository) {
         this.iShowRepository = iShowRepository;
@@ -40,12 +41,11 @@ public class BookingServiceImpl implements IBookingService, Serializable {
     }
 
 //Adding Booking By passing Customer Id  and Show Id
+
     /**
-     *
      * @param booking
      * @param customerId
      * @param showId
-     *
      */
     @Override
     public Booking addBooking(Booking booking, Integer customerId, Integer showId) {
@@ -57,6 +57,7 @@ public class BookingServiceImpl implements IBookingService, Serializable {
             booking.setTotalCost(price * booking.getTotalSeats());
             show.setBooking(booking);
             booking.setShow(show);
+            booking.setBookingStatus("BOOKED");
             booking.setMovie(show.getMovie());
             customer = iCustomerRepository.getById(customerId);
             booking.setCustomer(customer);
@@ -65,18 +66,30 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         return iBookingRepository.findById(booking.getBookingId()).get();
     }
 
+    /**
+     * @return Cancelling Booking and setting booking status to CANCELLED
+     * @param bookingId
+     */
+    @Override
+    public void cancelBooking(int bookingId) {
+        Booking booking = iBookingRepository.getById(bookingId);
+        if(!booking.getBookingStatus().equalsIgnoreCase("CANCELLED"))
+        booking.setBookingStatus("CANCELLED");
+        iBookingRepository.save(booking);
+    }
     //Derived query
     //Getting Booking By Id
+
     /**
-     *
      * @param bookingId
      * @throws BookingNotFoundException
      */
     @Override
     public Booking getByBookingId(int bookingId) {
 
-        return iBookingRepository.getByBookingId(bookingId).stream().findAny().orElseThrow(()->new BookingNotFoundException("Booking not Found with this Id"));
+        return iBookingRepository.getByBookingId(bookingId).stream().findAny().orElseThrow(() -> new BookingNotFoundException("Booking not Found with this Id"));
     }
+
     @Override
     public List<Booking> getAll() {
 
@@ -84,16 +97,15 @@ public class BookingServiceImpl implements IBookingService, Serializable {
     }
 
 
-
     //Getting Booking By Booking Date
+
     /**
-     *
      * @param bookingDate
      * @throws BookingNotFoundException
      */
     @Override
     public List<Booking> getByBookingDate(LocalDate bookingDate) {
-        List<Booking>bookings = iBookingRepository.getByBookingDate(bookingDate);
+        List<Booking> bookings = iBookingRepository.getByBookingDate(bookingDate);
         if (bookings.isEmpty())
             throw new BookingNotFoundException("Booking with Date not exist");
         return bookings;
@@ -102,82 +114,103 @@ public class BookingServiceImpl implements IBookingService, Serializable {
 
     //Custom query
     //Getting Booking By Customer Name
+
     /**
-     *
      * @param customerName
      * @throws BookingNotFoundException
      */
 
     @Override
     public List<Booking> getByCustomerName(String customerName) {
-        List<Booking>bookings = iBookingRepository.getByCustomerName(customerName);
+        List<Booking> bookings = iBookingRepository.getByCustomerName(customerName);
         if (bookings.isEmpty())
             throw new BookingNotFoundException("Booking with this Customer not Found");
         return bookings;
     }
 
     //Getting Booking By Seat Type
+
     /**
-     *
      * @param seatType
      * @throws BookingNotFoundException
      */
     @Override
     public List<Booking> getBySeatType(String seatType) {
 
-        List<Booking>bookings = iBookingRepository.getBySeatType(seatType);
+        List<Booking> bookings = iBookingRepository.getBySeatType(seatType);
         if (bookings.isEmpty())
             throw new BookingNotFoundException("Booking with this Seat Type not Found");
         return bookings;
     }
 
     //Getting Booking By Movie Name
+
     /**
-     *
      * @param movieName
      * @throws BookingNotFoundException
      */
     @Override
     public List<Booking> getByMovieName(String movieName) {
 
-        List<Booking>bookings = iBookingRepository.getByMovieName(movieName);
+        List<Booking> bookings = iBookingRepository.getByMovieName(movieName);
         if (bookings.isEmpty())
             throw new BookingNotFoundException("Booking with this Movie Name not Found");
         return bookings;
     }
 
     //Getting Booking By Show name
+
     /**
-     *
      * @param showName
      * @throws BookingNotFoundException
      */
     @Override
     public List<Booking> getByShowName(String showName) {
 
-        List<Booking>bookings = iBookingRepository.getByShowName(showName);
+        List<Booking> bookings = iBookingRepository.getByShowName(showName);
         if (bookings.isEmpty())
             throw new BookingNotFoundException("Booking with this Show Name not Found");
         return bookings;
     }
 
     //Getting Booking by language
+
     /**
-     *
      * @param language
      * @throws BookingNotFoundException
      */
     @Override
     public List<Booking> getByMovieLanguage(String language) {
-        List<Booking>bookings =iBookingRepository.getByMovieLanguage(language) ;
+        List<Booking> bookings = iBookingRepository.getByMovieLanguage(language);
         if (bookings.isEmpty())
             throw new BookingNotFoundException("Booking with this language not Found");
         return bookings;
     }
 
-//    @Override
-//    public double getTotalBookingCost() {
-//        return iBookingRepository.getTotalBookingCost();
-//    }
+    /**
+     * @return Getting Total sum of Booking
+     */
+    @Override
+    public double getSumOfBookingCost() {
+        return iBookingRepository.getSumOfBookingCost();
+    }
+
+    @Override
+    public int totalNumberOfBooking() {
+        return iBookingRepository.totalNumberOfBooking();
+    }
+
+    @Override
+    public int totalNumberOfCancelledBooking() {
+        return iBookingRepository.totalNumberOfCancelledBooking();
+    }
+
+
+    @Override
+    public void deleteBooking(Integer bookingId) {
+        iBookingRepository.deleteById(bookingId);
+    }
+
+
 
 }

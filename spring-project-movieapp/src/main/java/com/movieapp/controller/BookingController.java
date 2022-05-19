@@ -44,6 +44,22 @@ public class BookingController {
         ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.CREATED).build();
         return responseEntity;
 }
+    @DeleteMapping("/booking/delete/bookingId/{bookingId}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable("bookingId") int bookingId){
+
+        iBookingService.deleteBooking(bookingId);
+
+        ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return responseEntity;
+    }
+   @PutMapping("/booking/cancel/bookingId/{bookingId}")
+   public ResponseEntity<Void> cancelBooking(@PathVariable("bookingId") int bookingId){
+
+       iBookingService.cancelBooking(bookingId);
+
+       ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).build();
+       return responseEntity;
+   }
 
     /**
      *
@@ -158,14 +174,39 @@ public class BookingController {
         return responseEntity;
     }
 
-//    @GetMapping("/booking/totalCost")
-//    public ResponseEntity<Integer> getTotalCost(@PathVariable("language")String language){
-//        double totalCost = iBookingService.getTotalBookingCost();
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.add("desc", "Getting Bookings");
-//        ResponseEntity <Integer> responseEntity = new ResponseEntity(totalCost, httpHeaders, HttpStatus.OK);
-//        return responseEntity;
-//    }
+    /**
+     *
+     * @return Getting total sum of the booking done
+     */
+    @GetMapping("/booking/totalCost")
+    public ResponseEntity<Integer> getTotalCost(){
+        double totalCost = iBookingService.getSumOfBookingCost();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("desc", "Getting Bookings");
+        ResponseEntity <Integer> responseEntity = new ResponseEntity("Total Sum of Cost: "+totalCost, httpHeaders, HttpStatus.OK);
+        return responseEntity;
+    }
+
+    /**
+     *
+     * @return Getting Total Number of Booking done
+     */
+    @GetMapping("/booking/totalBooking")
+    public ResponseEntity<Integer> totalNumberOfBooking(){
+        double totalBooking = iBookingService.totalNumberOfBooking();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("desc", "Getting Bookings");
+        ResponseEntity <Integer> responseEntity = new ResponseEntity("Total Booking: "+totalBooking, httpHeaders, HttpStatus.OK);
+        return responseEntity;
+    }
+    @GetMapping("/booking/cancelBooking")
+    public ResponseEntity<Integer> totalNumberOfCancelledBooking(){
+        int  totalBooking = iBookingService.totalNumberOfCancelledBooking();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("desc", "Getting Bookings");
+        ResponseEntity <Integer> responseEntity = new ResponseEntity("Total Cancelled Booking: "+totalBooking, httpHeaders, HttpStatus.OK);
+        return responseEntity;
+    }
 
 
 
