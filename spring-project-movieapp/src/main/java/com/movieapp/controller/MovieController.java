@@ -28,7 +28,7 @@ public class MovieController {
     }
 
     /**
-     * No need to add movie separately add movie through Theatre controller only
+     * No need to add movie separately ,add movie with show through Theatre controller only
      * @param movie
      * @return
      * @throws MovieNotFoundException

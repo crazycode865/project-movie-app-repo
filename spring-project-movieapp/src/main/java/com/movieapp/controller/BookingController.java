@@ -48,8 +48,7 @@ public class BookingController {
     /**
      *
      * @param bookingId
-     * @return Booking By Id
-     * @throws BookingNotFoundException
+     * @return Show Booking By Id
      */
     @GetMapping("/booking/bookingId/{bookingId}")
     public ResponseEntity<Booking> getById(@PathVariable("bookingId")int bookingId) throws MovieNotFoundException {
@@ -63,7 +62,6 @@ public class BookingController {
     /**
      *
      * @return Show All Booking
-     * @throws MovieNotFoundException
      */
     @GetMapping("/booking/showAll")
     public ResponseEntity<List<Booking>> getAll()  {
@@ -78,7 +76,6 @@ public class BookingController {
      *
      * @param seatType
      * @return Show All Booking by Seat Type
-     * @throws MovieNotFoundException
      */
     @GetMapping("/booking/seatType/{seatType}")
     public ResponseEntity<List<Booking>> getBySeatType(@PathVariable("seatType")String seatType) {
@@ -93,7 +90,6 @@ public class BookingController {
      *
      * @param bookingDate
      * @return Show All Booking with this Date
-     * @throws MovieNotFoundException
      */
     @GetMapping("/booking/bookingDate/{bookingDate}")
     public ResponseEntity<List<Booking>> getByBookingDate(@PathVariable("bookingDate") String bookingDate) {
@@ -109,7 +105,6 @@ public class BookingController {
      *
      * @param customerName
      * @return Show All Booking By Customer Name
-     * @throws MovieNotFoundException
      */
     @GetMapping("/booking/customerName/{customerName}")
     public ResponseEntity<List<Booking>> getByCustomerName(@PathVariable(
@@ -125,7 +120,6 @@ public class BookingController {
      *
      * @param movieName
      * @return  Show All Booking  By Movie Name
-     * @throws MovieNotFoundException
      */
     @GetMapping("/booking/movieName/{movieName}")
     public ResponseEntity<List<Booking>> getByMovieName(@PathVariable("movieName")String movieName){
@@ -140,7 +134,6 @@ public class BookingController {
      *
      * @param showName
      * @return Show All Booking By Show Name
-     * @throws BookingNotFoundException
      */
     @GetMapping("/booking/showName/{showName}")
     public ResponseEntity<List<Booking>> getByShowName(@PathVariable("showName")String showName){
@@ -150,6 +143,12 @@ public class BookingController {
         ResponseEntity <List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
+
+    /**
+     *
+     * @param language
+     * @return Show All Booking By language
+     */
     @GetMapping("/booking/language/{language}")
     public ResponseEntity<List<Booking>> getByMovieLanguage(@PathVariable("language")String language){
         List<Booking> bookings = iBookingService.getByMovieLanguage(language);
@@ -159,6 +158,14 @@ public class BookingController {
         return responseEntity;
     }
 
+//    @GetMapping("/booking/totalCost")
+//    public ResponseEntity<Integer> getTotalCost(@PathVariable("language")String language){
+//        double totalCost = iBookingService.getTotalBookingCost();
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.add("desc", "Getting Bookings");
+//        ResponseEntity <Integer> responseEntity = new ResponseEntity(totalCost, httpHeaders, HttpStatus.OK);
+//        return responseEntity;
+//    }
 
 
 

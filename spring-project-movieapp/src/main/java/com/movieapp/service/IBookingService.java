@@ -26,4 +26,5 @@ public interface IBookingService {
     public List<Booking> getByShowName(String showName)throws BookingNotFoundException;
     public List<Booking> getByMovieLanguage(String language)throws BookingNotFoundException;
     List<Booking> getAll()throws BookingNotFoundException;
+//    double getTotalBookingCost();
 }

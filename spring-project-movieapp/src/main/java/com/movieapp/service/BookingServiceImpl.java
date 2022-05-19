@@ -39,7 +39,7 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         this.iBookingRepository = iBookingRepository;
     }
 
-//Adding Booking
+//Adding Booking By passing Customer Id  and Show Id
     /**
      *
      * @param booking
@@ -64,6 +64,7 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         iBookingRepository.save(booking);
         return iBookingRepository.findById(booking.getBookingId()).get();
     }
+
     //Derived query
     //Getting Booking By Id
     /**
@@ -81,6 +82,8 @@ public class BookingServiceImpl implements IBookingService, Serializable {
 
         return iBookingRepository.findAll();
     }
+
+
 
     //Getting Booking By Booking Date
     /**
@@ -172,5 +175,9 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         return bookings;
     }
 
+//    @Override
+//    public double getTotalBookingCost() {
+//        return iBookingRepository.getTotalBookingCost();
+//    }
 
 }

@@ -67,6 +67,18 @@ iShowRepository.save(show);
 
     /**
      *
+     * @return Getting All Show
+     */
+    @Override
+    public List<Show> getAll() {
+        List<Show>shows = iShowRepository.findAll();
+        if (shows.isEmpty())
+            throw new ShowNotFoundException("Show Not Found");
+        return shows;
+    }
+
+    /**
+     *
      * @param showStartTime
      * @return
      * @throws ShowNotFoundException
@@ -80,10 +92,13 @@ iShowRepository.save(show);
     }
 
     @Override
-    public List<Show> getAll() {
-        List<Show>shows = iShowRepository.findAll();
+    public List<Show> getByShowEndTime(LocalDateTime showEndTime) throws ShowNotFoundException {
+
+        List<Show> shows = iShowRepository.getByShowEndTime(showEndTime);
         if (shows.isEmpty())
-            throw new ShowNotFoundException("Show Not Found");
+            throw new ShowNotFoundException("Show not Found with this End Time");
         return shows;
     }
+
+
 }

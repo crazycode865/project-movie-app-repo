@@ -75,12 +75,23 @@ public class ShowController {
     }
 
     @GetMapping("/shows/showStartTime/{showStartTime}")
-    public ResponseEntity<List<Show>> getByShowStartTime(@PathVariable("showStartTime") LocalDateTime showStartTime){
-        List<Show> shows = iShowService.getByShowStartTime(showStartTime);
+    public ResponseEntity<List<Show>> getByShowStartTime(@PathVariable("showStartTime") String showStartTime){
+        LocalDateTime startTime = LocalDateTime.parse(showStartTime);
+        List<Show> shows = iShowService.getByShowStartTime(startTime);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Get Show By Start Time");
         ResponseEntity<List<Show>> responseEntity = new ResponseEntity<>(shows, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
+    @GetMapping("/shows/showEndTime/{showEndTime}")
+    public ResponseEntity<List<Show>> getByShowEndTime(@PathVariable("showEndTime") String showEndTime){
+        LocalDateTime endTime = LocalDateTime.parse(showEndTime);
+        List<Show> shows = iShowService.getByShowEndTime(endTime);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("desc", "Get Show By End Time");
+        ResponseEntity<List<Show>> responseEntity = new ResponseEntity<>(shows, httpHeaders, HttpStatus.OK);
+        return responseEntity;
+    }
+
 
 }

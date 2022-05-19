@@ -36,6 +36,9 @@ public interface IBookingRepository extends JpaRepository<Booking, Integer> {
 
     @Query("from Booking b inner join b.movie m where m.language=?1 ")
     public List<Booking> getByMovieLanguage(String language);
+//    @Query("Select sum(b.totalCost) from booking b")
+//    double getTotalBookingCost();
+
 
 
 }

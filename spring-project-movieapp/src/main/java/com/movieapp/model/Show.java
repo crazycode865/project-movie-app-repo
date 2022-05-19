@@ -31,14 +31,11 @@ public class Show implements Serializable {
     private double price;
     private LocalDateTime showStartTime;
     private LocalDateTime showEndTime;
-    //    @ManyToOne(cascade = CascadeType.MERGE)
-//    private Set<Theatre> theatre ;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "movie_id")
-    //@JsonIgnore
     private Movie movie;
     //    @JsonIgnore
-//    @ToExclude
 //    @JsonManagedReference("bookings")
 //    @JsonIgnore
     @OneToOne
