@@ -21,4 +21,7 @@ public interface IShowService {
     public List<Show> getByShowEndTime(LocalDateTime showEndTime) throws ShowNotFoundException;
 
 
+    List<Show> getShowByMovie(String movieName)throws ShowNotFoundException;
+
+    List<Show> getShowByPrice(double price)throws ShowNotFoundException;
 }

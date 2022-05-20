@@ -15,24 +15,34 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface IBookingService {
-    public Booking addBooking(Booking booking, Integer customerId,Integer showId);
-    public  void deleteBooking(Integer bookingId);
-    public void  cancelBooking(int bookingId);
-    public Booking getByBookingId(int bookingId)throws BookingNotFoundException;
-    public List<Booking> getByBookingDate(LocalDate bookingDate)throws BookingNotFoundException;
+    public Booking addBooking(Booking booking, Integer customerId, Integer showId);
+
+    public void deleteBooking(Integer bookingId);
+
+    public void cancelBooking(int bookingId);
+
+    public Booking getByBookingId(int bookingId) throws BookingNotFoundException;
+
+    List<Booking> getAll() throws BookingNotFoundException;
+
+    public List<Booking> getByBookingDate(LocalDate bookingDate) throws BookingNotFoundException;
 
 
-    public List<Booking> getByCustomerName(String customerName)throws BookingNotFoundException;
-    public List<Booking> getBySeatType(String seatType)throws BookingNotFoundException;
-    public List<Booking> getByMovieName(String movieName)throws BookingNotFoundException;
-    public List<Booking> getByShowName(String showName)throws BookingNotFoundException;
-    public List<Booking> getByMovieLanguage(String language)throws BookingNotFoundException;
-    List<Booking> getAll()throws BookingNotFoundException;
+    public List<Booking> getByCustomerName(String customerName) throws BookingNotFoundException;
+
+    public List<Booking> getBySeatType(String seatType) throws BookingNotFoundException;
+
+    public List<Booking> getByMovieName(String movieName) throws BookingNotFoundException;
+
+    public List<Booking> getByShowName(String showName) throws BookingNotFoundException;
+
+    public List<Booking> getByMovieLanguage(String language) throws BookingNotFoundException;
+
+    public List<Booking> getByCustomerEmail(String emailId);
 
     double getSumOfBookingCost();
 
     int totalNumberOfBooking();
-
 
     int totalNumberOfCancelledBooking();
 }

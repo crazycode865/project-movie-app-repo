@@ -8,7 +8,6 @@ package com.movieapp.controller;
 
 import com.movieapp.exception.MovieNotFoundException;
 import com.movieapp.model.Booking;
-import com.movieapp.model.Movie;
 import com.movieapp.service.IBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +22,7 @@ import java.util.List;
 @RequestMapping("/booking-api")
 public class BookingController {
     IBookingService iBookingService;
+
     @Autowired
     public void setiBookingService(IBookingService iBookingService) {
 
@@ -30,184 +30,185 @@ public class BookingController {
     }
 
     /**
-     *
      * @param booking
      * @param customerId
      * @param showId
      * @return Adding Booking By Passing Customer Id and Show id
      */
-    @PostMapping("/booking/customerId/{customerId}/showId/{showId}")
-    public ResponseEntity<Void> addBooking(@RequestBody Booking booking,@PathVariable("customerId") Integer customerId,@PathVariable("showId") Integer showId){
+    @PostMapping("/user/booking/customerId/{customerId}/showId/{showId}")
+    public ResponseEntity<Void> addBooking(@RequestBody Booking booking, @PathVariable("customerId") Integer customerId, @PathVariable("showId") Integer showId) {
 
-        iBookingService.addBooking(booking,customerId,showId);
+        iBookingService.addBooking(booking, customerId, showId);
 
         ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.CREATED).build();
         return responseEntity;
-}
-    @DeleteMapping("/booking/delete/bookingId/{bookingId}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable("bookingId") int bookingId){
+    }
+
+    // Deleting booking By BookingId
+    @DeleteMapping("/admin/booking/delete/bookingId/{bookingId}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable("bookingId") int bookingId) {
 
         iBookingService.deleteBooking(bookingId);
 
         ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).build();
         return responseEntity;
     }
-   @PutMapping("/booking/cancel/bookingId/{bookingId}")
-   public ResponseEntity<Void> cancelBooking(@PathVariable("bookingId") int bookingId){
 
-       iBookingService.cancelBooking(bookingId);
+    // Cancelling  Booking
+    @PutMapping("/user/booking/cancel/bookingId/{bookingId}")
+    public ResponseEntity<Void> cancelBooking(@PathVariable("bookingId") int bookingId) {
 
-       ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).build();
-       return responseEntity;
-   }
+        iBookingService.cancelBooking(bookingId);
+
+        ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return responseEntity;
+    }
 
     /**
-     *
      * @param bookingId
      * @return Show Booking By Id
      */
-    @GetMapping("/booking/bookingId/{bookingId}")
-    public ResponseEntity<Booking> getById(@PathVariable("bookingId")int bookingId) throws MovieNotFoundException {
+    @GetMapping("/user/booking/bookingId/{bookingId}")
+    public ResponseEntity<Booking> getById(@PathVariable("bookingId") int bookingId) throws MovieNotFoundException {
         Booking booking = iBookingService.getByBookingId(bookingId);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Getting Bookings BY Id");
-        ResponseEntity <Booking> responseEntity = new ResponseEntity<>(booking, httpHeaders, HttpStatus.OK);
+        ResponseEntity<Booking> responseEntity = new ResponseEntity<>(booking, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @return Show All Booking
      */
-    @GetMapping("/booking/showAll")
-    public ResponseEntity<List<Booking>> getAll()  {
+    @GetMapping("/admin/booking/showAll")
+    public ResponseEntity<List<Booking>> getAll() {
         List<Booking> bookings = iBookingService.getAll();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("desc", "Getting Bookings");
-        ResponseEntity <List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
+        httpHeaders.add("desc", "Getting All Bookings");
+        ResponseEntity<List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @param seatType
      * @return Show All Booking by Seat Type
      */
-    @GetMapping("/booking/seatType/{seatType}")
-    public ResponseEntity<List<Booking>> getBySeatType(@PathVariable("seatType")String seatType) {
+    @GetMapping("/user/booking/seatType/{seatType}")
+    public ResponseEntity<List<Booking>> getBySeatType(@PathVariable("seatType") String seatType) {
         List<Booking> bookings = iBookingService.getBySeatType(seatType);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Getting Bookings by Seat Type");
-        ResponseEntity <List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
+        ResponseEntity<List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @param bookingDate
      * @return Show All Booking with this Date
      */
-    @GetMapping("/booking/bookingDate/{bookingDate}")
+    @GetMapping("/user/booking/bookingDate/{bookingDate}")
     public ResponseEntity<List<Booking>> getByBookingDate(@PathVariable("bookingDate") String bookingDate) {
         LocalDate bkingDate = LocalDate.parse(bookingDate);
         List<Booking> bookings = iBookingService.getByBookingDate(bkingDate);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Getting Bookings by Booking Date");
-        ResponseEntity <List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
+        ResponseEntity<List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @param customerName
      * @return Show All Booking By Customer Name
      */
     @GetMapping("/booking/customerName/{customerName}")
     public ResponseEntity<List<Booking>> getByCustomerName(@PathVariable(
-            "customerName")String customerName)  {
+            "customerName") String customerName) {
         List<Booking> bookings = iBookingService.getByCustomerName(customerName);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("desc", "Getting Bookings");
-        ResponseEntity <List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
+        httpHeaders.add("desc", "Getting Bookings By customer name");
+        ResponseEntity<List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @param movieName
-     * @return  Show All Booking  By Movie Name
+     * @return Show All Booking  By Movie Name
      */
     @GetMapping("/booking/movieName/{movieName}")
-    public ResponseEntity<List<Booking>> getByMovieName(@PathVariable("movieName")String movieName){
+    public ResponseEntity<List<Booking>> getByMovieName(@PathVariable("movieName") String movieName) {
         List<Booking> bookings = iBookingService.getByMovieName(movieName);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("desc", "Getting Bookings");
-        ResponseEntity <List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
+        httpHeaders.add("desc", "Getting Bookings By movie");
+        ResponseEntity<List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @param showName
      * @return Show All Booking By Show Name
      */
     @GetMapping("/booking/showName/{showName}")
-    public ResponseEntity<List<Booking>> getByShowName(@PathVariable("showName")String showName){
+    public ResponseEntity<List<Booking>> getByShowName(@PathVariable("showName") String showName) {
         List<Booking> bookings = iBookingService.getByShowName(showName);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("desc", "Getting Bookings");
-        ResponseEntity <List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
+        httpHeaders.add("desc", "Getting Bookings By show");
+        ResponseEntity<List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @param language
      * @return Show All Booking By language
      */
     @GetMapping("/booking/language/{language}")
-    public ResponseEntity<List<Booking>> getByMovieLanguage(@PathVariable("language")String language){
+    public ResponseEntity<List<Booking>> getByMovieLanguage(@PathVariable("language") String language) {
         List<Booking> bookings = iBookingService.getByMovieLanguage(language);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("desc", "Getting Bookings");
-        ResponseEntity <List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
+        httpHeaders.add("desc", "Getting Bookings By language");
+        ResponseEntity<List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @return Getting total sum of the booking done
      */
     @GetMapping("/booking/totalCost")
-    public ResponseEntity<Integer> getTotalCost(){
+    public ResponseEntity<Integer> getTotalCost() {
         double totalCost = iBookingService.getSumOfBookingCost();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("desc", "Getting Bookings");
-        ResponseEntity <Integer> responseEntity = new ResponseEntity("Total Sum of Cost: "+totalCost, httpHeaders, HttpStatus.OK);
+        httpHeaders.add("desc", "Getting total price of  Bookings");
+        ResponseEntity<Integer> responseEntity = new ResponseEntity("Total Sum of Cost: " + totalCost, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
     /**
-     *
      * @return Getting Total Number of Booking done
      */
     @GetMapping("/booking/totalBooking")
-    public ResponseEntity<Integer> totalNumberOfBooking(){
+    public ResponseEntity<Integer> totalNumberOfBooking() {
         double totalBooking = iBookingService.totalNumberOfBooking();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("desc", "Getting Bookings");
-        ResponseEntity <Integer> responseEntity = new ResponseEntity("Total Booking: "+totalBooking, httpHeaders, HttpStatus.OK);
+        httpHeaders.add("desc", "Getting Total Number of Bookings");
+        ResponseEntity<Integer> responseEntity = new ResponseEntity("Total Booking: " + totalBooking, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
+
     @GetMapping("/booking/cancelBooking")
-    public ResponseEntity<Integer> totalNumberOfCancelledBooking(){
-        int  totalBooking = iBookingService.totalNumberOfCancelledBooking();
+    public ResponseEntity<Integer> totalNumberOfCancelledBooking() {
+        int totalBooking = iBookingService.totalNumberOfCancelledBooking();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("desc", "Getting Bookings");
-        ResponseEntity <Integer> responseEntity = new ResponseEntity("Total Cancelled Booking: "+totalBooking, httpHeaders, HttpStatus.OK);
+        httpHeaders.add("desc", "Getting cancelled Bookings");
+        ResponseEntity<Integer> responseEntity = new ResponseEntity("Total Cancelled Booking: " + totalBooking, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
 
-
+    @GetMapping("/booking/emailId/{emailId}")
+    public ResponseEntity<List<Booking>> getByCustomerEmail(@PathVariable("emailId") String emailId) {
+        List<Booking> bookings = iBookingService.getByCustomerEmail(emailId);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("desc", "Getting Bookings By Customer email");
+        ResponseEntity<List<Booking>> responseEntity = new ResponseEntity<>(bookings, httpHeaders, HttpStatus.OK);
+        return responseEntity;
+    }
 
 }

@@ -24,14 +24,16 @@ public class Customer {
     private Integer customerId;
     @Column(length = 20)
     private String customerName;
+    private String emailId;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
     @OneToMany(mappedBy = "customer")
     private Set<Booking> booking;
 
-    public Customer(String customerName, Address address, Set<Booking> booking) {
+    public Customer(String customerName, String emailId, Address address, Set<Booking> booking) {
         this.customerName = customerName;
+        this.emailId = emailId;
         this.address = address;
         this.booking = booking;
     }

@@ -8,7 +8,6 @@ package com.movieapp.controller;
 
 import com.movieapp.exception.MovieNotFoundException;
 import com.movieapp.model.Customer;
-import com.movieapp.model.Movie;
 import com.movieapp.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

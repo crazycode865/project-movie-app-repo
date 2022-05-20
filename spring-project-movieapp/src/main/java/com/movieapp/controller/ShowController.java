@@ -42,14 +42,14 @@ public class ShowController {
 //        return responseEntity;
 //    }
 
-    @PutMapping("/shows/update-show")
+    @PutMapping("/admin/shows/update-show")
     public ResponseEntity<Void> updateShow(@RequestBody Show show) {
         iShowService.updateShow(show);
         ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).build();
         return responseEntity;
     }
 
-    @DeleteMapping("/shows/delete-show/showId/{showId}")
+    @DeleteMapping("/admin/shows/delete-show/showId/{showId}")
     public ResponseEntity<Void> deleteShow(@PathVariable("showId") int showId) {
         iShowService.deleteShow(showId);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -57,7 +57,7 @@ public class ShowController {
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).build();
     }
 
-    @GetMapping("shows/showId/{showId}")
+    @GetMapping("admin/shows/showId/{showId}")
     public ResponseEntity<Show> getById(@PathVariable("movieId") int showId)  {
         Show show = iShowService.getById(showId);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -67,6 +67,7 @@ public class ShowController {
     }
     @GetMapping("/shows/showAll")
     public ResponseEntity<List<Show>> getall()  {
+
         List<Show> shows = iShowService.getAll();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("desc", "Getting all shows");
@@ -92,6 +93,25 @@ public class ShowController {
         ResponseEntity<List<Show>> responseEntity = new ResponseEntity<>(shows, httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
+
+    @GetMapping("/shows/movieName/{movieName}")
+    public ResponseEntity<List<Show>> getShowByMovie(@PathVariable("movieName") String movieName){
+        List<Show> shows = iShowService.getShowByMovie(movieName);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("desc", "Get Show By Movie");
+        ResponseEntity<List<Show>> responseEntity = new ResponseEntity<>(shows, httpHeaders, HttpStatus.OK);
+        return responseEntity;
+    }
+
+    @GetMapping("/shows/price/{price}")
+    public ResponseEntity<List<Show>> getShowByPrice(@PathVariable("price") double price){
+        List<Show> shows = iShowService.getShowByPrice(price);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("desc", "Get Show By Price");
+        ResponseEntity<List<Show>> responseEntity = new ResponseEntity<>(shows, httpHeaders, HttpStatus.OK);
+        return responseEntity;
+    }
+
 
 
 }

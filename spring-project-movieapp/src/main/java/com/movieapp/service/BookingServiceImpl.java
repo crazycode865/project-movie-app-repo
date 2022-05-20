@@ -187,6 +187,14 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         return bookings;
     }
 
+    @Override
+    public List<Booking> getByCustomerEmail(String email) {
+        List<Booking> bookings = iBookingRepository.getByCustomerEmail(email);
+        if (bookings.isEmpty())
+            throw new BookingNotFoundException("Booking with this language not Found");
+        return bookings;
+    }
+
     /**
      * @return Getting Total sum of Booking
      */
