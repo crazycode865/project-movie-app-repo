@@ -23,9 +23,8 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param movie
-     * @return
-     * @throws MovieNotFoundException
+     * Add movie through Show Controller
+     *
      */
     @Override
     public Movie addMovie(Movie movie) {
@@ -35,7 +34,7 @@ public class MovieServiceImpl implements IMovieService{
     /**
      *
      * @param movieId
-     * @throws MovieNotFoundException
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public void deleteMovie(int movieId) {
@@ -44,8 +43,9 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param movie
-     * @throws MovieNotFoundException
+     * @param movie Movie Object
+     *  Updating movie details
+     *
      */
     @Override
     public void updateMovie(Movie movie) {
@@ -54,9 +54,9 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param movieId
-     * @return
-     * @throws MovieNotFoundException
+     * @param movieId Movie id
+     * @return Getting By Movie Id
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public Movie getById(int movieId) {
@@ -65,8 +65,8 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @return
-     * @throws MovieNotFoundException
+     * @return Getting All Movie
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public List<Movie> getAll()  {
@@ -78,9 +78,9 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param movieName
-     * @return
-     * @throws MovieNotFoundException
+     * @param movieName Name
+     * @return Getting movie By movie name
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public Movie getByMovieName(String movieName) {
@@ -93,9 +93,9 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param language
-     * @return
-     * @throws MovieNotFoundException
+     * @param language Language
+     * @return Getting movie By language
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public List<Movie> getByLanguage(String language)  {
@@ -107,9 +107,9 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param genre
-     * @return
-     * @throws MovieNotFoundException
+     * @param genre Genre
+     * @return Getting By Genre
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public List<Movie> getByGenre(String genre) {
@@ -121,9 +121,9 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param type
-     * @return
-     * @throws MovieNotFoundException
+     * @param type type
+     * @return Getting movie By Type (Hollywood, Bollywood)
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public List<Movie> getByType(String type) {
@@ -135,9 +135,9 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param ratings
-     * @return
-     * @throws MovieNotFoundException
+     * @param ratings ratings
+     * @return Getting Movie By ratings
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public List<Movie> getByRatings(double ratings) {
@@ -149,10 +149,10 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param movieName
-     * @param ratings
-     * @return
-     * @throws MovieNotFoundException
+     * @param movieName Name
+     * @param ratings ratings
+     * @return Getting By Movie name and ratings
+     * @throws MovieNotFoundException Exception
      */
     @Override
     public List<Movie> getByMovieNameAndRatings(String movieName, double ratings) {
@@ -164,9 +164,9 @@ public class MovieServiceImpl implements IMovieService{
 
     /**
      *
-     * @param language
-     * @param type
-     * @return
+     * @param language language
+     * @param type type
+     * @return Getting By language and Type
      */
     @Override
     public List<Movie> getByLanguageAndType(String language, String type) {

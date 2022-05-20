@@ -21,6 +21,7 @@ import java.util.List;
 @Service
 
 public class BookingServiceImpl implements IBookingService, Serializable {
+
     IBookingRepository iBookingRepository;
     IShowRepository iShowRepository;
     ICustomerRepository iCustomerRepository;
@@ -64,6 +65,16 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         }
         iBookingRepository.save(booking);
         return iBookingRepository.findById(booking.getBookingId()).get();
+    }
+
+    /**
+     *
+     * @param bookingId
+     * @return Delete Booking
+     */
+    @Override
+    public void deleteBooking(Integer bookingId) {
+        iBookingRepository.deleteById(bookingId);
     }
 
     /**
@@ -187,6 +198,11 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         return bookings;
     }
 
+    /**
+     *
+     * @param email
+     * @return Getting Booking By customer Email
+     */
     @Override
     public List<Booking> getByCustomerEmail(String email) {
         List<Booking> bookings = iBookingRepository.getByCustomerEmail(email);
@@ -203,22 +219,22 @@ public class BookingServiceImpl implements IBookingService, Serializable {
         return iBookingRepository.getSumOfBookingCost();
     }
 
+    /**
+     *
+     * @return Getting Total number of Booking done
+     */
     @Override
     public int totalNumberOfBooking() {
         return iBookingRepository.totalNumberOfBooking();
     }
 
+    /**
+     *
+     * @return Getting Total number of CANCELLED booking
+     */
     @Override
     public int totalNumberOfCancelledBooking() {
         return iBookingRepository.totalNumberOfCancelledBooking();
     }
-
-
-    @Override
-    public void deleteBooking(Integer bookingId) {
-        iBookingRepository.deleteById(bookingId);
-    }
-
-
 
 }

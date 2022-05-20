@@ -40,14 +40,14 @@ public class MovieController {
 ////        System.out.println("Adding movies");
 //        return responseEntity;
 //    }
-    @PutMapping("/admin/movies/update-movie")
+    @PutMapping("/movies/update-movie")
     public ResponseEntity<Void> updateMovie(@RequestBody Movie movie) throws MovieNotFoundException {
         iMovieService.updateMovie(movie);
         ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.CREATED).build();
        // System.out.println("Updating movies");
         return responseEntity;
     }
-    @DeleteMapping("/admin/movies/delete-movie/movieId/{movieId}")
+    @DeleteMapping("/movies/delete-movie/movieId/{movieId}")
     public ResponseEntity<Void> deleteMovie(@PathVariable("movieId")int movieId) throws MovieNotFoundException {
         iMovieService.deleteMovie(movieId);
         HttpHeaders httpHeaders = new HttpHeaders();

@@ -27,8 +27,8 @@ public class ShowServiceImpl implements IShowService {
     }
 
     /**
-     *
-     * @param show
+     *Add show Through Theatre Controller
+     * @param show Show
      */
     @Override
     public void addShow(Show show){
@@ -37,8 +37,8 @@ iShowRepository.save(show);
 
     /**
      *
-     * @param showId
-     * @throws ShowNotFoundException
+     * @param showId Show Id
+     * @throws ShowNotFoundException Exception
      */
     @Override
     public void deleteShow(int showId) throws ShowNotFoundException {
@@ -46,8 +46,8 @@ iShowRepository.deleteById(showId);
     }
 
     /**
-     *
-     * @param show
+     *Updating Show details
+     * @param show show
      */
     @Override
     public void updateShow(Show show) {
@@ -56,9 +56,9 @@ iShowRepository.save(show);
 
     /**
      *
-     * @param showId
-     * @return
-     * @throws ShowNotFoundException
+     * @param showId Show id
+     * @return Getting show By id
+     * @throws ShowNotFoundException Exception
      */
     @Override
     public Show getById(int showId)  {
@@ -78,9 +78,9 @@ iShowRepository.save(show);
     }
     /**
      *
-     * @param showStartTime
-     * @return
-     * @throws ShowNotFoundException
+     * @param showStartTime Show Start Time
+     * @return Getting By Show Start Time
+     * @throws ShowNotFoundException Exception
      */
     @Override
     public List<Show> getByShowStartTime(LocalDateTime showStartTime){
@@ -90,6 +90,12 @@ iShowRepository.save(show);
         return shows;
     }
 
+    /**
+     *
+     * @param showEndTime Show End Time
+     * @return Getting Show By End Time
+     * @throws ShowNotFoundException Exception
+     */
     @Override
     public List<Show> getByShowEndTime(LocalDateTime showEndTime) throws ShowNotFoundException {
         List<Show> shows = iShowRepository.getByShowEndTime(showEndTime);
@@ -98,6 +104,12 @@ iShowRepository.save(show);
         return shows;
     }
 
+    /**
+     *
+     * @param movieName Movie Name
+     * @return Getting Show By movie
+     * @throws ShowNotFoundException Exception
+     */
     @Override
     public List<Show> getShowByMovie(String movieName) throws ShowNotFoundException {
        List<Show> shows = iShowRepository.getShowByMovie(movieName);
@@ -106,6 +118,12 @@ iShowRepository.save(show);
         return shows;
     }
 
+    /**
+     *
+     * @param price Price
+     * @return Getting Show By Price
+     * @throws ShowNotFoundException Exception
+     */
     @Override
     public List<Show> getShowByPrice(double price) throws ShowNotFoundException {
         List<Show> shows = iShowRepository.getShowByPrice(price);

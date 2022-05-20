@@ -42,14 +42,14 @@ public class ShowController {
 //        return responseEntity;
 //    }
 
-    @PutMapping("/admin/shows/update-show")
+    @PutMapping("/shows/update-show")
     public ResponseEntity<Void> updateShow(@RequestBody Show show) {
         iShowService.updateShow(show);
         ResponseEntity<Void> responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).build();
         return responseEntity;
     }
 
-    @DeleteMapping("/admin/shows/delete-show/showId/{showId}")
+    @DeleteMapping("/shows/delete-show/showId/{showId}")
     public ResponseEntity<Void> deleteShow(@PathVariable("showId") int showId) {
         iShowService.deleteShow(showId);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -57,7 +57,7 @@ public class ShowController {
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).build();
     }
 
-    @GetMapping("admin/shows/showId/{showId}")
+    @GetMapping("/shows/showId/{showId}")
     public ResponseEntity<Show> getById(@PathVariable("movieId") int showId)  {
         Show show = iShowService.getById(showId);
         HttpHeaders httpHeaders = new HttpHeaders();

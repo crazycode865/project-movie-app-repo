@@ -25,11 +25,21 @@ public class CustomerServiceImpl implements ICustomerService {
         this.iCustomerRepository = iCustomerRepository;
     }
 
+    /**
+     *
+     * @param customer
+     * @return Add Customer
+     */
     @Override
     public void addCustomer(Customer customer) {
         iCustomerRepository.save(customer);
     }
 
+    /**
+     *
+     * @param customer
+     * @return Update Customer
+     */
     @Override
     public void updateCustomer(Customer customer) {
         iCustomerRepository.save(customer);
@@ -54,6 +64,10 @@ public class CustomerServiceImpl implements ICustomerService {
         iCustomerRepository.findById(customerId);
     }
 
+    /**
+     *
+     * @return Getting All Customer
+     */
     @Override
     public List<Customer> getAll() {
         return iCustomerRepository.findAll();

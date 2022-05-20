@@ -24,8 +24,8 @@ public class TheatreServiceImpl implements ITheatreService {
     }
 
     /**
-     *
-     * @param theatre
+     *Adding Theatre
+     * @param theatre Theatre
      */
     @Override
     public void addTheatre(Theatre theatre) {
@@ -33,8 +33,8 @@ public class TheatreServiceImpl implements ITheatreService {
     }
 
     /**
-     *
-     * @param theatre
+     *Updating Theatre
+     * @param theatre Theatre
      */
     @Override
     public void updateTheatre(Theatre theatre) {
@@ -42,8 +42,8 @@ public class TheatreServiceImpl implements ITheatreService {
     }
 
     /**
-     *
-     * @param theatreId
+     *Delete Theatre
+     * @param theatreId Theatre id
      */
     @Override
     public void deleteTheatre(int theatreId) {
@@ -52,8 +52,8 @@ public class TheatreServiceImpl implements ITheatreService {
 
     /**
      *
-     * @param theatreId
-     * @return
+     * @param theatreId Theatre id
+     * @return Getting By Theatre id
      */
     @Override
     public Theatre getById(int theatreId) {
@@ -64,8 +64,8 @@ public class TheatreServiceImpl implements ITheatreService {
 
     /**
      *
-     * @param theatreName
-     * @return
+     * @param theatreName Theatre name
+     * @return Getting by Theatre name
      */
     @Override
     public Theatre getByTheatreName(String theatreName) {
@@ -78,8 +78,8 @@ public class TheatreServiceImpl implements ITheatreService {
 
     /**
      *
-     * @param city
-     * @return
+     * @param city City
+     * @return Getting Theatre By city
      */
     @Override
     public List<Theatre> getByCity(String city) {
@@ -90,6 +90,10 @@ public class TheatreServiceImpl implements ITheatreService {
         return theatres;
     }
 
+    /**
+     *
+     * @return Getting All theatre
+     */
     @Override
     public List<Theatre> getAll() {
         List<Theatre> theatres = iTheatreRepository.findAll();

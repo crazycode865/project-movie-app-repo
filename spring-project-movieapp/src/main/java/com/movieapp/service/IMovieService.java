@@ -3,7 +3,6 @@ package com.movieapp.service;
 import com.movieapp.exception.MovieNotFoundException;
 import com.movieapp.model.Movie;
 
-import java.time.LocalDate;
 import java.util.List;
 
 

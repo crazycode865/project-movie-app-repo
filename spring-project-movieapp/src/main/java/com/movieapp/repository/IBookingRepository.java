@@ -26,16 +26,16 @@ public interface IBookingRepository extends JpaRepository<Booking, Integer> {
 
 
     //Custom Query
-    @Query("from Booking b inner join b.movie m where m.movieName=?1 ")
+    @Query("from Booking b inner join b.movie m where m.movieName=?1")
     public List<Booking> getByMovieName(String movieName);
 
-    @Query("from Booking b inner join b.show s where s.showName=?1 ")
+    @Query("from Booking b inner join b.show s where s.showName=?1")
     public List<Booking> getByShowName(String showName);
 
     @Query("from Booking b inner join b.customer c where c.customerName=?1")
     public List<Booking> getByCustomerName(String customerName);
 
-    @Query("from Booking b inner join b.movie m where m.language=?1 ")
+    @Query("from Booking b inner join b.movie m where m.language=?1")
     public List<Booking> getByMovieLanguage(String language);
 
     @Query("from Booking b inner join b.customer c where c.emailId=?1")

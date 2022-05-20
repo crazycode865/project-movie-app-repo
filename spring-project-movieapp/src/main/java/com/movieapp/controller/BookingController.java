@@ -35,7 +35,7 @@ public class BookingController {
      * @param showId
      * @return Adding Booking By Passing Customer Id and Show id
      */
-    @PostMapping("/user/booking/customerId/{customerId}/showId/{showId}")
+    @PostMapping("/booking/customerId/{customerId}/showId/{showId}")
     public ResponseEntity<Void> addBooking(@RequestBody Booking booking, @PathVariable("customerId") Integer customerId, @PathVariable("showId") Integer showId) {
 
         iBookingService.addBooking(booking, customerId, showId);
@@ -45,7 +45,7 @@ public class BookingController {
     }
 
     // Deleting booking By BookingId
-    @DeleteMapping("/admin/booking/delete/bookingId/{bookingId}")
+    @DeleteMapping("/booking/delete/bookingId/{bookingId}")
     public ResponseEntity<Void> deleteBooking(@PathVariable("bookingId") int bookingId) {
 
         iBookingService.deleteBooking(bookingId);
@@ -55,7 +55,7 @@ public class BookingController {
     }
 
     // Cancelling  Booking
-    @PutMapping("/user/booking/cancel/bookingId/{bookingId}")
+    @PutMapping("/booking/cancel/bookingId/{bookingId}")
     public ResponseEntity<Void> cancelBooking(@PathVariable("bookingId") int bookingId) {
 
         iBookingService.cancelBooking(bookingId);
@@ -68,7 +68,7 @@ public class BookingController {
      * @param bookingId
      * @return Show Booking By Id
      */
-    @GetMapping("/user/booking/bookingId/{bookingId}")
+    @GetMapping("/booking/bookingId/{bookingId}")
     public ResponseEntity<Booking> getById(@PathVariable("bookingId") int bookingId) throws MovieNotFoundException {
         Booking booking = iBookingService.getByBookingId(bookingId);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -80,7 +80,7 @@ public class BookingController {
     /**
      * @return Show All Booking
      */
-    @GetMapping("/admin/booking/showAll")
+    @GetMapping("/booking/showAll")
     public ResponseEntity<List<Booking>> getAll() {
         List<Booking> bookings = iBookingService.getAll();
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -93,7 +93,7 @@ public class BookingController {
      * @param seatType
      * @return Show All Booking by Seat Type
      */
-    @GetMapping("/user/booking/seatType/{seatType}")
+    @GetMapping("/booking/seatType/{seatType}")
     public ResponseEntity<List<Booking>> getBySeatType(@PathVariable("seatType") String seatType) {
         List<Booking> bookings = iBookingService.getBySeatType(seatType);
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -106,7 +106,7 @@ public class BookingController {
      * @param bookingDate
      * @return Show All Booking with this Date
      */
-    @GetMapping("/user/booking/bookingDate/{bookingDate}")
+    @GetMapping("/booking/bookingDate/{bookingDate}")
     public ResponseEntity<List<Booking>> getByBookingDate(@PathVariable("bookingDate") String bookingDate) {
         LocalDate bkingDate = LocalDate.parse(bookingDate);
         List<Booking> bookings = iBookingService.getByBookingDate(bkingDate);
